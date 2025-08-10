@@ -1,4 +1,4 @@
-import { DEFAULT_AUTO_REFRESH, DEFAULT_PORT_MAPPING_TTL, DEVICE_WAN_IP_CONNECTION_2 } from './constants.js'
+import { DEFAULT_AUTO_REFRESH, DEFAULT_PORT_MAPPING_TTL, DEVICE_WAN_IP_CONNECTION_1 } from './constants.js'
 import { InternetGatewayService } from './internet-gateway-service.js'
 import { findNamespacedKey } from './utils.js'
 import type { MapPortOptions } from '../index.js'
@@ -34,7 +34,7 @@ export class InternetGatewayService6 extends InternetGatewayService<IPv6Mapping>
     this.log('creating mapping for local port %d to %j', localPort, mapping)
 
     const gateway = await this.getGateway(options)
-    const response = await gateway.run(DEVICE_WAN_IP_CONNECTION_2, 'AddPinhole', [
+    const response = await gateway.run(DEVICE_WAN_IP_CONNECTION_1, 'AddPinhole', [
       ['RemoteHost', mapping.remoteHost],
       ['RemotePort', mapping.externalPort],
       ['InternalClient', localHost],
@@ -63,7 +63,7 @@ export class InternetGatewayService6 extends InternetGatewayService<IPv6Mapping>
     for (const mapping of mappings) {
       try {
         const gateway = await this.getGateway(options)
-        await gateway.run(DEVICE_WAN_IP_CONNECTION_2, 'UpdatePinhole', [
+        await gateway.run(DEVICE_WAN_IP_CONNECTION_1, 'UpdatePinhole', [
           ['UniqueID', mapping.uniqueId],
           ['NewLeaseTime', mapping.ttl]
         ], options)
@@ -83,7 +83,7 @@ export class InternetGatewayService6 extends InternetGatewayService<IPv6Mapping>
         clearTimeout(mapping.refreshTimeout)
 
         const gateway = await this.getGateway(options)
-        await gateway.run(DEVICE_WAN_IP_CONNECTION_2, 'DeletePinhole', [
+        await gateway.run(DEVICE_WAN_IP_CONNECTION_1, 'DeletePinhole', [
           ['UniqueID', mapping.uniqueId]
         ], options)
       } catch (err) {

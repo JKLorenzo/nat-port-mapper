@@ -1,7 +1,7 @@
 import { isIPv6, isIPv4 } from '@chainsafe/is-ip'
 import { logger } from '@libp2p/logger'
 import { isPrivateIp } from '../utils.js'
-import { DEFAULT_REFRESH_THRESHOLD, DEFAULT_REFRESH_TIMEOUT, DEVICE_WAN_IP_CONNECTION_2 } from './constants.js'
+import { DEFAULT_REFRESH_THRESHOLD, DEFAULT_REFRESH_TIMEOUT, DEVICE_WAN_IP_CONNECTION_1 } from './constants.js'
 import { Device } from './device.js'
 import { discoverGateways } from './discovery.js'
 import { findLocalAddresses, findNamespacedKey, stripHostBrackets } from './utils.js'
@@ -78,7 +78,7 @@ export abstract class InternetGatewayService<Mapping extends RefreshableMapping>
     this.log.trace('discover external IP address')
 
     const gateway = await this.getGateway(options)
-    const response = await gateway.run(DEVICE_WAN_IP_CONNECTION_2, 'GetExternalIPAddress', [], options)
+    const response = await gateway.run(DEVICE_WAN_IP_CONNECTION_1, 'GetExternalIPAddress', [], options)
     const key = findNamespacedKey('GetExternalIPAddressResponse', response)
 
     this.log.trace('discovered external IP address %s', response[key].NewExternalIPAddress)

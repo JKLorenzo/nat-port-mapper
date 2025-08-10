@@ -1,4 +1,4 @@
-import { DEFAULT_AUTO_REFRESH, DEFAULT_PORT_MAPPING_TTL, DEVICE_WAN_IP_CONNECTION_2 } from './constants.js'
+import { DEFAULT_AUTO_REFRESH, DEFAULT_PORT_MAPPING_TTL, DEVICE_WAN_IP_CONNECTION_1 } from './constants.js'
 import { InternetGatewayService } from './internet-gateway-service.js'
 import { findNamespacedKey } from './utils.js'
 import type { MapPortOptions } from '../index.js'
@@ -27,7 +27,7 @@ export class InternetGatewayService4 extends InternetGatewayService<IPv4Mapping>
     this.log('creating mapping for local port %d to %j', localPort, mapping)
 
     const gateway = await this.getGateway(options)
-    const response = await gateway.run(DEVICE_WAN_IP_CONNECTION_2, 'AddAnyPortMapping', [
+    const response = await gateway.run(DEVICE_WAN_IP_CONNECTION_1, 'AddAnyPortMapping', [
       ['NewRemoteHost', mapping.remoteHost],
       ['NewExternalPort', mapping.externalPort],
       ['NewProtocol', mapping.protocol],
@@ -57,7 +57,7 @@ export class InternetGatewayService4 extends InternetGatewayService<IPv4Mapping>
     for (const mapping of mappings) {
       try {
         const gateway = await this.getGateway(options)
-        await gateway.run(DEVICE_WAN_IP_CONNECTION_2, 'AddAnyPortMapping', [
+        await gateway.run(DEVICE_WAN_IP_CONNECTION_1, 'AddAnyPortMapping', [
           ['NewRemoteHost', mapping.remoteHost],
           ['NewExternalPort', mapping.externalPort],
           ['NewProtocol', mapping.protocol],
@@ -83,7 +83,7 @@ export class InternetGatewayService4 extends InternetGatewayService<IPv4Mapping>
         clearTimeout(mapping.refreshTimeout)
 
         const gateway = await this.getGateway(options)
-        await gateway.run(DEVICE_WAN_IP_CONNECTION_2, 'DeletePortMapping', [
+        await gateway.run(DEVICE_WAN_IP_CONNECTION_1, 'DeletePortMapping', [
           ['NewRemoteHost', ''],
           ['NewExternalPort', localPort],
           ['NewProtocol', '']
