@@ -144,7 +144,8 @@
     "docs": "aegir docs",
     "release": "aegir release",
     "test": "aegir test -t node",
-    "test:node": "aegir test -t node"
+    "test:node": "aegir test -t node",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@achingbrain/ssdp": "^4.1.0",
